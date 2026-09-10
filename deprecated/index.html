@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Claude Workshop · New York · September 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-dark:#0D1634;
+    --navy:#172469;
+    --navy-text:#002244;
+    --pink:#FF0066;
+    --white:#FFFFFF;
+    --grey-bg:#F0F1F5;
+    --grey-border:#DADFE8;
+    --muted:#5b6580;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Roboto',Arial,sans-serif;color:var(--navy-text);background:var(--white);}
+  a{color:var(--pink);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  code{font-family:'IBM Plex Mono',monospace;background:var(--grey-bg);padding:2px 6px;border-radius:4px;font-size:0.88em;}
+  :focus-visible{outline:2px solid var(--pink);outline-offset:2px;}
+
+  #gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 80% 15%, rgba(255,0,102,0.28), transparent 45%), linear-gradient(160deg, var(--navy-dark) 0%, var(--navy) 60%, #2b1a5e 100%);
+    z-index:1000;}
+  #gate .card{width:min(420px,90vw);background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,0.35);}
+  #gate .card-top{height:6px;background:linear-gradient(90deg,var(--pink),var(--navy));}
+  #gate .card-body{padding:36px 32px 32px;}
+  #gate h1{font-size:26px;margin:0 0 8px;font-weight:900;}
+  #gate p.sub{color:var(--muted);margin:0 0 22px;font-size:14.5px;}
+  #gate input[type=password]{width:100%;padding:13px 14px;font-size:15px;border:1.5px solid var(--grey-border);border-radius:8px;margin-bottom:16px;font-family:inherit;}
+  #gate input[type=password]:focus{outline:none;border-color:var(--pink);}
+  #gate button{width:100%;padding:14px;border:none;border-radius:8px;background:linear-gradient(90deg,var(--pink),var(--navy));color:var(--white);font-weight:700;font-size:15px;cursor:pointer;}
+  #gate button:hover{filter:brightness(1.08);}
+  #gate .error{color:var(--pink);font-size:13.5px;margin-top:10px;display:none;font-weight:500;}
+  #gate .shake{animation:shake 0.35s;}
+  @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-6px);}80%{transform:translateX(6px);}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+  #app{display:none;}
+  #app.visible{display:block;}
+  #topbar{background:linear-gradient(90deg,var(--navy-dark),var(--navy) 55%,var(--pink) 130%);color:var(--white);padding:10px 24px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:14px;position:sticky;top:0;z-index:100;}
+  #topbar .drive-link{color:var(--white);font-weight:700;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.14);padding:8px 14px;border-radius:20px;}
+  #topbar .drive-link:hover{background:rgba(255,255,255,0.24);text-decoration:none;}
+  #topbar .event-tag{opacity:0.85;font-size:13px;}
+
+  .layout{display:flex;min-height:100vh;}
+  #sidebar{width:260px;flex:0 0 260px;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-dark) 100%);color:var(--white);
+    padding:26px 20px;position:sticky;top:41px;align-self:flex-start;height:calc(100vh - 41px);overflow-y:auto;}
+  #sidebar .brand{font-size:19px;font-weight:900;line-height:1.25;margin-bottom:4px;}
+  #sidebar .brand-sub{font-size:11px;letter-spacing:1.5px;color:#aab3d6;font-weight:700;margin-bottom:18px;}
+  #sidebar .slug-tag{display:inline-block;background:rgba(255,255,255,0.12);padding:4px 10px;border-radius:6px;font-size:12px;margin-bottom:22px;font-family:'IBM Plex Mono',monospace;}
+  #sidebar nav{display:flex;flex-direction:column;gap:2px;margin-bottom:24px;}
+  #sidebar nav a{color:#d7dcf2;font-size:14px;padding:9px 10px;border-radius:6px;}
+  #sidebar nav a:hover{background:rgba(255,255,255,0.08);color:var(--white);text-decoration:none;}
+  #lockBtn{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);background:transparent;color:#d7dcf2;font-size:13px;cursor:pointer;font-family:inherit;}
+  #lockBtn:hover{background:rgba(255,255,255,0.1);color:var(--white);}
+
+  main{flex:1;padding:36px 48px 80px;max-width:920px;}
+  h2.section-title{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--pink);font-weight:700;margin:44px 0 16px;}
+  h2.section-title:first-of-type{margin-top:0;}
+
+  .hero h1{font-size:32px;margin:0 0 6px;font-weight:900;}
+  .hero .meta{color:var(--muted);font-size:14.5px;margin-bottom:14px;}
+  .hero .lede{font-size:16.5px;max-width:660px;line-height:1.55;}
+
+  .part-badge{display:inline-block;background:var(--navy);color:var(--white);font-size:11px;font-weight:700;letter-spacing:1.2px;padding:5px 11px;border-radius:4px;margin-bottom:14px;}
+  .part-headline{font-size:24px;font-weight:900;margin:0 0 10px;}
+  .part-sub{color:var(--muted);font-size:15px;margin:0 0 22px;max-width:660px;line-height:1.5;}
+  .context-block,.flow-block{margin:40px 0;}
+
+  .scr-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .scr-item{background:var(--grey-bg);border-radius:10px;padding:18px;}
+  .scr-item.highlight{background:var(--navy);color:var(--white);}
+  .scr-label{font-size:11px;letter-spacing:1.2px;font-weight:700;color:var(--pink);margin-bottom:8px;text-transform:uppercase;}
+  .scr-item p{margin:0;font-size:14px;line-height:1.55;}
+
+  table.bridge{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 4px;}
+  table.bridge th{text-align:left;font-size:11px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--grey-border);}
+  table.bridge td{padding:10px;border-bottom:1px solid var(--grey-border);vertical-align:top;line-height:1.45;}
+  table.bridge td:first-child{font-weight:700;width:34%;}
+  table.bridge td:last-child{color:var(--muted);}
+
+  .callout{background:var(--grey-bg);border-left:4px solid var(--pink);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.55;}
+  .callout.tip{border-left-color:var(--navy);}
+  ul.prereq{margin:0;padding-left:20px;font-size:14.5px;line-height:1.8;}
+
+  details.step{border:1px solid var(--grey-border);border-radius:10px;margin-bottom:14px;overflow:hidden;}
+  details.step[open]{border-color:var(--pink);}
+  details.step summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:16px 20px;}
+  details.step summary::-webkit-details-marker{display:none;}
+  .step-num{flex:0 0 34px;height:34px;border-radius:50%;background:var(--grey-bg);color:var(--navy-text);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'IBM Plex Mono',monospace;font-size:15px;}
+  details.step[open] .step-num{background:var(--pink);color:var(--white);}
+  .step-titles{flex:1;}
+  .step-titles .t{font-weight:700;font-size:16px;}
+  .step-titles .s{font-size:13px;color:var(--muted);margin-top:2px;}
+  .chev{transition:transform 0.15s;color:#8a90ab;font-size:14px;}
+  details.step[open] .chev{transform:rotate(180deg);color:var(--pink);}
+  .step-body{padding:0 20px 22px 70px;font-size:14.5px;line-height:1.65;}
+  .step-body p{margin:8px 0;}
+  .step-body ul{margin:8px 0;padding-left:20px;line-height:1.7;}
+
+  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.8px;padding:4px 10px;border-radius:4px;background:var(--navy);color:var(--white);margin:0 6px 10px 0;text-transform:uppercase;}
+  .badge.web{background:#3d4a8f;}
+  .badge.cowork{background:var(--pink);}
+  .badge.plugin{background:#0a8f6f;}
+
+  .prompt{position:relative;background:var(--grey-bg);border:1px solid var(--grey-border);border-radius:8px;padding:16px 90px 16px 16px;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.6;white-space:pre-wrap;margin:10px 0;}
+  .prompt .copy{position:absolute;top:10px;right:10px;background:var(--white);border:1px solid var(--grey-border);border-radius:6px;
+    padding:5px 12px;font-size:12px;cursor:pointer;font-family:'Roboto',sans-serif;font-weight:500;color:var(--navy-text);}
+  .prompt .copy:hover{border-color:var(--pink);color:var(--pink);}
+  .prompt .copy.copied{background:var(--pink);color:var(--white);border-color:var(--pink);}
+
+  .done-box{background:var(--navy);color:var(--white);border-radius:10px;padding:20px 24px;margin-top:20px;}
+  .done-box .t{font-weight:900;font-size:16px;margin-bottom:10px;}
+  .done-box ul{margin:0;padding-left:20px;font-size:14px;line-height:1.8;}
+  .done-box code{background:rgba(255,255,255,0.16);color:var(--white);}
+
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--grey-border);color:var(--muted);font-size:13px;}
+
+  @media (max-width:860px){
+    .layout{flex-direction:column;}
+    #sidebar{width:100%;flex:auto;height:auto;position:static;}
+    main{padding:24px 20px 60px;}
+    .scr-row{grid-template-columns:1fr;}
+    .step-body{padding-left:20px;}
+    table.bridge td:first-child{width:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="card">
+    <div class="card-top"></div>
+    <div class="card-body">
+      <h1>Claude Workshop</h1>
+      <p class="sub">New York, September 2026. Enter the password from the room.</p>
+      <input type="password" id="pwInput" placeholder="Password" autocomplete="off" aria-label="Password">
+      <button id="unlockBtn">Open the workshop</button>
+      <div class="error" id="pwError">That password did not work. Check the slide on screen.</div>
+    </div>
+  </div>
+</div>
+
+<div id="app">
+  <div id="topbar">
+    <span class="event-tag">Artefact &times; Anthropic · New York · September 2026</span>
+    <a class="drive-link" href="#" target="_blank" rel="noopener" id="driveLink">Download the workshop folder</a>
+  </div>
+
+  <div class="layout">
+    <aside id="sidebar">
+      <div class="brand">Claude Workshop</div>
+      <div class="brand-sub">ARTEFACT &times; ANTHROPIC</div>
+      <div class="slug-tag">maison lavernay</div>
+      <nav>
+        <a href="#overview">Overview</a>
+        <a href="#context">The brief</a>
+        <a href="#flow">How the day runs</a>
+        <a href="#bridge">What each step teaches</a>
+        <a href="#prereqs">Before you start</a>
+        <a href="#steps">The steps</a>
+        <a href="#troubleshooting">If something breaks</a>
+        <a href="#resources">Resources</a>
+      </nav>
+      <button id="lockBtn">Lock this page</button>
+    </aside>
+
+    <main>
+      <section class="hero" id="overview">
+        <h1>Maison Lavernay is losing the next generation.</h1>
+        <div class="meta">September 2026 · about 2 hours · one offer, taken from idea to prototype</div>
+        <p class="lede">You have the research, the house's own numbers, and two hours.
+        You decide what Lavernay should launch. By the end you will have a business
+        case, a committee deck, and a working prototype of the thing you invented.</p>
+      </section>
+
+      <section class="context-block" id="context">
+        <div class="part-badge">THE BRIEF</div>
+        <h2 class="part-headline">A 118 year old house whose customer now arrives twenty years late.</h2>
+        <div class="scr-row">
+          <div class="scr-item">
+            <div class="scr-label">Where you start</div>
+            <p>You are in Strategy &amp; New Business at Maison Lavernay. Paris, 1908.
+            Fine jewellery, leather goods, fragrance. Family controlled, 190 boutiques,
+            no logos, no discounts, ever.</p>
+          </div>
+          <div class="scr-item">
+            <div class="scr-label">What is happening</div>
+            <p>The entry tier has fallen from 34% of transactions to 19%. Average age
+            at first purchase went from 36 to 41. Under 35s are now 12% of revenue,
+            down from 21%. Revenue fell for the first time since 2009.</p>
+          </div>
+          <div class="scr-item highlight">
+            <div class="scr-label">What you owe the committee</div>
+            <p>One new offer that brings that customer back. A product line, a service,
+            a membership, a programme. Not a campaign for what you already sell.</p>
+          </div>
+        </div>
+        <div class="callout"><b>Maison Lavernay is invented.</b> The market research is
+        real and published. The house, its numbers and its brand are ours, so you can
+        argue about them freely.</div>
+      </section>
+
+      <section class="flow-block" id="flow">
+        <div class="part-badge">HOW THE DAY RUNS</div>
+        <h2 class="part-headline">One question in the browser. Everything else in the folder.</h2>
+        <p class="part-sub">Step 1 runs at claude.ai in a browser, with no files and no
+        folder. It produces one document. From step 2 onward you work in Cowork on a
+        local folder, because everything after the research needs the house's brand and
+        financials in front of it.</p>
+        <table class="bridge">
+          <tr><td>Step 1</td><td>claude.ai in a browser. Do not open the desktop app yet.</td></tr>
+          <tr><td>Steps 2 to 8</td><td>Claude desktop app, Cowork, on the workshop folder.</td></tr>
+        </table>
+      </section>
+
+      <section id="bridge">
+        <h2 class="section-title">What each step teaches</h2>
+        <p class="part-sub">The ideas from the first session are not separate from the
+        exercise. Each one has a moment below where you will see it happen.</p>
+        <table class="bridge">
+          <thead><tr><th>Idea</th><th>Where you meet it</th></tr></thead>
+          <tbody>
+            <tr><td>Chat is for thinking, not for keeping</td><td>Step 1. You ask, you read, you export one document, you leave.</td></tr>
+            <tr><td>Context is why the desktop app exists</td><td>Step 2. The same question is a better question once the brand and the financials are in the room.</td></tr>
+            <tr><td>Connectors reach the real world</td><td>Step 3. Claude goes and looks at what other brands are actually doing.</td></tr>
+            <tr><td>A skill is a standard that travels</td><td>Step 5. A house rule becomes something anyone can install.</td></tr>
+            <tr><td>Agents work while you do not</td><td>Step 8. Something that keeps watching after today.</td></tr>
+            <tr><td>Standards central, work local</td><td>The share-out. One folder, thirty people, thirty different offers that all sound like Lavernay.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <h2 class="section-title" id="prereqs">Before you start</h2>
+      <ul class="prereq">
+        <li>Claude desktop app installed and signed in with your workshop account (<a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>)</li>
+        <li>Cowork enabled in the app, memory on, tool access set to load tools when needed</li>
+        <li>Claude for Chrome extension installed</li>
+        <li>Claude for Excel and PowerPoint extensions installed</li>
+        <li>The workshop folder downloaded and unzipped somewhere you can find it</li>
+        <li>A browser tab open at claude.ai, signed in to the same account</li>
+      </ul>
+      <div class="callout"><b>If an extension will not install, raise your hand now</b>
+      rather than at step 3. Someone will come to you. Steps 3, 4 and 6 each use a
+      different one.</div>
+      <div class="callout tip"><b>On permissions:</b> Cowork asks before it reads or
+      writes outside the folder you pointed it at, before it runs anything in a shell,
+      and before it installs. Approve, or redirect it. You stay in control throughout.</div>
+
+      <h2 class="section-title" id="steps">The steps</h2>
+
+      <details class="step" open>
+        <summary>
+          <div class="step-num">1</div>
+          <div class="step-titles">
+            <div class="t">Research the shift</div>
+            <div class="s">Browser only. One question, one document, then you are done with Chat.</div>
+          </div>
+          <div class="chev">&#9662;</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge web">claude.ai in your browser</span>
+          <p>Do not open the desktop app for this step. Go to claude.ai in a browser tab.</p>
+          <div class="prompt" id="p1"><button class="copy" onclick="copyPrompt('p1')">Copy</button># Role
+Act as a seasoned Marketing Professional for the Luxury Industry. I need you to help me plan the creation of a new product.
+
+# Instructions
+Use these two articles as reference:
+https://insights.ehl.edu/gen-z-luxury-consumption
+https://www.pandcglobal.com/research-insights/millennials-gen-z-are-transforming-luxury-retail/
+
+Give me a market brief on what is actually happening to luxury demand under 35: the hard numbers, if the two sources disagree, and which claims I should not repeat to a committee without checking. Then follow their citations and pull two figures neither article states directly.
+
+# Output
+Produce me a concise markdown document as output</div>
+          <p><b>Then do these three things before moving on:</b></p>
+          <ul>
+            <li>Download the markdown file</li>
+            <li>Put it in the workshop folder, inside <code>/research</code></li>
+            <li>Open the desktop app, create a project with <b>Use local folder</b>, and choose the workshop folder</li>
+          </ul>
+          <div class="callout tip"><b>Why we stop here:</b> Chat is for work you read
+          once and carry away. The moment you want to keep building on something, you
+          are in the wrong tool.</div>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>
+          <div class="step-num">2</div>
+          <div class="step-titles">
+            <div class="t">Find your opportunity</div>
+            <div class="s">Now in Cowork, because the idea needs the brand and the numbers next to it.</div>
+          </div>
+          <div class="chev">&#9662;</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge cowork">Claude desktop app · Cowork</span>
+          <p>Everything from here runs on the folder. The brand identity, the house's
+          five year performance and your market brief are all in there now.</p>
+          <div class="prompt" id="p2"><button class="copy" onclick="copyPrompt('p2')">Copy</button>Based on the market brief in the folder: give me 3 different offers (new product line or a digital product / service) a 118 year old French jewellery house could launch to bring back the customer it is losing. Make them genuinely different from each other. For each, say in one line what it assumes about the customer that the others do not.</div>
+          <p>Pick one. Then push on it:</p>
+          <div class="prompt" id="p3"><button class="copy" onclick="copyPrompt('p3')">Copy</button>I'm taking [the one you picked]. Grill me on it. What would have to be true, what am I assuming without evidence, and what is the version of this that a competitor could copy in six months?</div>
+          <p>Go a few rounds. When the idea holds:</p>
+          <div class="prompt" id="p4"><button class="copy" onclick="copyPrompt('p4')">Copy</button>Stop grilling me. Save the idea in the /research folder, and update your project memory.</div>
+          <div class="callout"><b>This is the difference between the two tools.</b> The
+          same question you could have asked in the browser becomes a better question
+          here, because the house's brand rules and five years of its numbers are in
+          the room with you.</div>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>
+          <div class="step-num">3</div>
+          <div class="step-titles">
+            <div class="t">See who is already doing it</div>
+            <div class="s">Out to the live web, and back with evidence.</div>
+          </div>
+          <div class="chev">&#9662;</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge cowork">Cowork</span>
+          <span class="badge plugin">Claude for Chrome</span>
+          <div class="prompt" id="p5"><button class="copy" onclick="copyPrompt('p5')">Copy</button>Use Chrome to look at two brands already doing something adjacent to my concept. Not competitors necessarily. I want to know how they explain it on their own site, how they price it, and what they got wrong. Screenshot and save into the project.</div>
+          <div class="callout tip"><b>No Chrome extension?</b> Ask Claude to use the
+          built-in browser instead. It will navigate the pages and bring back what it
+          finds.</div>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>
+          <div class="step-num">4</div>
+          <div class="step-titles">
+            <div class="t">Build the business case</div>
+            <div class="s">No template. The model takes the shape your offer needs.</div>
+          </div>
+          <div class="chev">&#9662;</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge cowork">Cowork</span>
+          <span class="badge plugin">Claude for Excel</span>
+          <div class="prompt" id="p6"><button class="copy" onclick="copyPrompt('p6')">Copy</button>Build the business case in Excel for my concept following /brand/business-case-standards.md. Keep it simple. There is no template, build the model the offer actually needs. Ground every assumption you can in the performance file or the research, and where you cannot, say so in the cell rather than making it look solid.</div>
+          <p>Open it in Excel and keep working there:</p>
+          <div class="prompt" id="p7"><button class="copy" onclick="copyPrompt('p7')">Copy</button>Add the sensitivity on the two inputs that move the answer most. Then tell me which single assumption the whole case rests on.</div>
+          <div class="callout"><b>Note what just happened.</b> Nobody gave you a
+          spreadsheet template. A standards file described what a good business case
+          contains, and the model was built to fit your offer rather than someone
+          else's. That is the difference between a document a team has to remember and
+          a standard that applies itself.</div>
+          <div class="callout tip"><b>Worth knowing:</b> the Excel and PowerPoint
+          extensions only see the file you have open. They do not see the rest of your
+          project folder. Ask them about the workbook in front of you, not about the deal.</div>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>
+          <div class="step-num">5</div>
+          <div class="step-titles">
+            <div class="t">Turn the house rules into a skill</div>
+            <div class="s">The most reusable five minutes of the day.</div>
+          </div>
+          <div class="chev">&#9662;</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge cowork">Cowork</span>
+          <p>Right now the deck standards are a document somebody has to remember to
+          read. Make them something that applies itself.</p>
+          <div class="prompt" id="p8"><button class="copy" onclick="copyPrompt('p8')">Copy</button>Turn /brand/deck-standards.md and the voice rules in /brand/house-identity.md into a reusable skill called lavernay-deck that anyone on the team can install. It should enforce the structure, the action-title rule, the sourcing rule and the banned words. It should assume nothing about my particular concept. Use /skill-creator to create it.</div>
+          <div class="callout"><b>This is the answer to "how do we scale this".</b> Not
+          a longer prompt. A standard that installs itself, once, for everybody.</div>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>
+          <div class="step-num">6</div>
+          <div class="step-titles">
+            <div class="t">Build the committee deck</div>
+            <div class="s">Evidence and pitch in one deck, every number traceable.</div>
+          </div>
+          <div class="chev">&#9662;</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge cowork">Cowork</span>
+          <span class="badge plugin">Claude for PowerPoint</span>
+          <div class="prompt" id="p9"><button class="copy" onclick="copyPrompt('p9')">Copy</button>Using the lavernay-deck skill, build the committee deck. Evidence and pitch in one deck, not two. Pull every number from the model so the deck and the model cannot disagree. Slide 7 is the assumptions the recommendation depends on, stated so someone can argue with them.</div>
+          <p>Then open it in PowerPoint:</p>
+          <div class="prompt" id="p10"><button class="copy" onclick="copyPrompt('p10')">Copy</button>Rewrite every slide title as a full sentence stating the finding. Then tell me which slide gets attacked first.</div>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>
+          <div class="step-num">7</div>
+          <div class="step-titles">
+            <div class="t">Build the prototype</div>
+            <div class="s">The thing you actually walk out with.</div>
+          </div>
+          <div class="chev">&#9662;</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge cowork">Cowork</span>
+          <div class="prompt" id="p11"><button class="copy" onclick="copyPrompt('p11')">Copy</button>Build the landing page for my offer as a single self-contained HTML file, following /brand/landing-page-standards.md exactly. House palette, no logo, one action. Open it so I can see it.</div>
+          <div class="callout"><b>An hour ago this was a paragraph you wrote in a
+          browser.</b> Nobody wrote a line of code.</div>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>
+          <div class="step-num">8</div>
+          <div class="step-titles">
+            <div class="t">Leave something running</div>
+            <div class="s">The work does not stop when you close the laptop.</div>
+          </div>
+          <div class="chev">&#9662;</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge cowork">Cowork</span>
+          <div class="prompt" id="p12"><button class="copy" onclick="copyPrompt('p12')">Copy</button>Set up a weekly task that watches for anything that would change a number in my business case: category data, competitor launches in this space, resale platform news. Short. Only tell me when something actually moved.</div>
+          <div class="callout"><b>Everything before this step was you working faster.</b>
+          This step is work happening without you.</div>
+          <div class="done-box">
+            <div class="t">What you should have by now</div>
+            <ul>
+              <li>A market brief you pulled in the browser and carried into the folder</li>
+              <li>Your offer, saved and in the project's memory</li>
+              <li>Benchmark screenshots from two brands doing something adjacent</li>
+              <li>A business case (<code>.xlsx</code>) shaped to your offer, with a sensitivity</li>
+              <li>A <code>lavernay-deck</code> skill anyone on your team could install tomorrow</li>
+              <li>A committee deck (<code>.pptx</code>) whose numbers match the model</li>
+              <li>A working landing page for something that did not exist this morning</li>
+              <li>A weekly task that keeps watching</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <h2 class="section-title" id="troubleshooting">If something breaks</h2>
+      <ul class="prereq">
+        <li><b>Cowork cannot see your files.</b> Check which folder the project points at. It only reads inside that folder.</li>
+        <li><b>The Excel or PowerPoint extension seems lost.</b> It only sees the open file, never the project. Give it what it needs in the prompt.</li>
+        <li><b>The Chrome extension will not install.</b> Ask Claude to use the built-in browser instead.</li>
+        <li><b>Claude cannot see what you are looking at.</b> Screenshot it and paste it in.</li>
+        <li><b>The output is generic.</b> That is almost always a context problem, not a prompt problem. Ask it which files it actually read.</li>
+        <li><b>You lost the thread between sessions.</b> Ask it to summarise what it currently knows from <code>CLAUDE.md</code> and memory before you continue.</li>
+        <li><b>It made a number up.</b> Ask for the source file and row. Then tell it to flag the gap instead of filling it.</li>
+      </ul>
+
+      <h2 class="section-title" id="resources">Resources</h2>
+      <ul class="prereq">
+        <li><a href="#" target="_blank" rel="noopener" id="driveLink2">Workshop folder</a></li>
+        <li><a href="https://insights.ehl.edu/gen-z-luxury-consumption" target="_blank" rel="noopener">EHL · Gen Z and the future of luxury consumption</a></li>
+        <li><a href="https://www.pandcglobal.com/research-insights/millennials-gen-z-are-transforming-luxury-retail/" target="_blank" rel="noopener">P&amp;C Global · Millennials and Gen Z are transforming luxury retail</a></li>
+        <li><a href="https://docs.claude.com" target="_blank" rel="noopener">Claude documentation</a></li>
+        <li><a href="https://support.claude.com" target="_blank" rel="noopener">Claude support and help centre</a></li>
+      </ul>
+
+      <footer>Artefact &times; Anthropic · Claude Workshop · New York · September 2026</footer>
+    </main>
+  </div>
+</div>
+
+<script>
+  var PASSWORD = "nyc-2026";
+  var DRIVE_URL = "https://drive.google.com/drive/folders/1KeAQxMU_oZ2Ur7UHc9KmCKZ-5t88_xgc?usp=sharing";
+
+  function unlock(){
+    document.getElementById('gate').style.display = 'none';
+    var app = document.getElementById('app');
+    app.style.display = 'block';
+    app.classList.add('visible');
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    ['driveLink','driveLink2'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.href = DRIVE_URL;
+    });
+
+    if (localStorage.getItem('claude_workshop_unlocked') === 'true') unlock();
+
+    var input = document.getElementById('pwInput');
+    var btn   = document.getElementById('unlockBtn');
+    var err   = document.getElementById('pwError');
+    var card  = document.querySelector('#gate .card');
+
+    function tryUnlock(){
+      var val = (input.value || '').trim().toLowerCase();
+      if (val === PASSWORD.toLowerCase()) {
+        localStorage.setItem('claude_workshop_unlocked','true');
+        err.style.display = 'none';
+        unlock();
+      } else {
+        err.style.display = 'block';
+        card.classList.remove('shake');
+        void card.offsetWidth;
+        card.classList.add('shake');
+      }
+    }
+
+    btn.addEventListener('click', tryUnlock);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') tryUnlock(); });
+
+    document.getElementById('lockBtn').addEventListener('click', function(){
+      localStorage.removeItem('claude_workshop_unlocked');
+      document.getElementById('app').style.display = 'none';
+      document.getElementById('gate').style.display = 'flex';
+      input.value = '';
+    });
+  });
+
+  function copyPrompt(id){
+    var el = document.getElementById(id);
+    var btn = el.querySelector('.copy');
+    var text = el.textContent.replace(btn.textContent, '').trim();
+    navigator.clipboard.writeText(text).then(function(){
+      var original = btn.textContent;
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = original; btn.classList.remove('copied'); }, 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

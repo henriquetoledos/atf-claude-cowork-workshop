@@ -249,9 +249,6 @@
             <p>One new product or service that brings that customer back — researched, cased, and prototyped by you, end to end.</p>
           </div>
         </div>
-        <div class="callout" style="margin-top:16px;">
-          <b>The opportunity is real, and it's ours to take.</b> The house that makes itself matter to this generation first doesn't just defend its numbers, it gets to define what luxury looks like for the next twenty years. That's what you're building today.
-        </div>
       </section>
 
       <section class="flow-block" id="flow">
@@ -329,20 +326,13 @@
       <ul class="prereq">
         <li>Claude desktop app installed and signed in with your workshop account (<a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>)</li>
         <li>Cowork mode enabled in the app</li>
-        <li>Claude for Chrome extension installed (optional) </li>
-        <li>Claude for Excel &amp; PowerPoint extension installed (optional) </li>
+        <li>Claude for Chrome extension installed</li>
+        <li>Claude for Excel &amp; PowerPoint extension installed</li>
         <li>The workshop folder downloaded, to use as your project workspace</li>
       </ul>
       <div class="callout">
         <b>Pro tip:</b> Cowork will ask for permission before it reads or writes files outside the folder you point it to, before running shell commands, and before installing anything new. Approve each action, or tell it to do something different — you stay in control the whole time.
       </div>
-
-      <h2 class="section-title">Before You Begin</h2>
-      <ul class="prereq">
-        <li>Click the link at the top left of this page to download the <b>.zip</b> exercise files</li>
-        <li>Unzip the files into a folder that's easy to find and get back to</li>
-        <li>The <b>grill-me</b> skill is not something you install alone — we'll do it together, as a group, once everyone is set up</li>
-      </ul>
 
       <h2 class="section-title" id="steps">Core Steps</h2>
 
@@ -431,7 +421,7 @@ Produce me a concise markdown document as output</div>
           <p>Everything from here runs on the folder. The house identity, the five year performance file, and your market brief are all in the room now.</p>
           <div class="prompt" id="p3">
             <button class="copy" onclick="copyPrompt('p3')">Copy</button>Based on the market brief in the research folder: give me 3 different offers (new product line or a digital product / service) a 118 year old French jewellery house could launch to bring back the customer it is losing. Make them genuinely different from each other. For each, say in one line what it assumes about the customer that the others do not.</div>
-          <p>Pick one. Then open the <b>grill-me</b> skill we installed together and push on it:</p>
+          <p>Pick one. Then install the <b>grill-me</b> skill from the folder and push on it:</p>
           <div class="prompt" id="p4">
             <button class="copy" onclick="copyPrompt('p4')">Copy</button>I'm taking [the one you picked]. Grill me on it. What would have to be true, what am I assuming without evidence, and what is the version of this that a competitor could copy in six months?</div>
           <div class="callout tip"><b>Tip:</b> if the grill-me session is deviating too much from what you want to do, just steer it. Ask Claude to stop once you feel you've reached an understanding.</div>
@@ -470,12 +460,11 @@ Produce me a concise markdown document as output</div>
         </summary>
         <div class="step-body">
           <span class="badge">Cowork</span>
-          <div class="callout tip"><b>Switch to Sonnet 5 for this step.</b> Haiku is fast but doesn't reliably produce good spreadsheet or slide output — use the model picker to switch before you continue.</div>
           <div class="prompt" id="p7">
             <button class="copy" onclick="copyPrompt('p7')">Copy</button>Build the business case in Excel for my concept following /brand/business-case-standards.md. Keep it simple. There is no template, build the model the offer actually needs. Ground every assumption you can in the performance file or the research, and where you cannot, say so in the cell rather than making it look solid.</div>
           <p><b>Open it in Excel and keep working there:</b></p>
           <div class="prompt" id="p8">
-            <button class="copy" onclick="copyPrompt('p8')">Copy</button>Add charts showing the investment payback for this offer — when it breaks even, and how that shifts under a slower and a faster adoption case. Then tell me which single assumption the whole case rests on.</div>
+            <button class="copy" onclick="copyPrompt('p8')">Copy</button>Add the sensitivity on the two inputs that move the answer most. Then tell me which single assumption the whole case rests on.</div>
           <div class="callout"><b>Important:</b> the Claude extension in Excel and PowerPoint does not see your whole project — only what's inside the open workbook. Keep that in mind when asking it to reference other files.</div>
           <p><b>Optional — leave something running:</b></p>
           <div class="prompt" id="p9">
@@ -494,12 +483,14 @@ Produce me a concise markdown document as output</div>
         </summary>
         <div class="step-body">
           <span class="badge">Cowork</span>
-          <div class="callout tip"><b>Stay on Sonnet 5 for this step</b> — the deck build and the PowerPoint pass both need it for consistent quality.</div>
           <div class="prompt" id="p10">
             <button class="copy" onclick="copyPrompt('p10')">Copy</button>Turn /brand/deck-standards.md and the voice rules in /brand/house-identity.md into a reusable skill called lavernay-deck that anyone on the team can install. It should enforce the structure, the action-title rule, the sourcing rule and the banned words. It should assume nothing about my particular concept. Use /skill-creator to create it.</div>
           <p>Once the skill exists, build the deck:</p>
           <div class="prompt" id="p11">
             <button class="copy" onclick="copyPrompt('p11')">Copy</button>Using the lavernay-deck skill, build the committee deck for the idea on reserach folder . Evidence and pitch in one deck, not two. Pull every number from the model so the deck and the model cannot disagree. Slide 7 is the assumptions the recommendation depends on, stated so someone can argue with them.</div>
+          <p><b>Open it in PowerPoint to finish it:</b></p>
+          <div class="prompt" id="p12">
+            <button class="copy" onclick="copyPrompt('p12')">Copy</button>Rewrite every slide title as a full sentence stating the finding. Then tell me which slide gets attacked first.</div>
         </div>
       </details>
 
@@ -521,7 +512,7 @@ Produce me a concise markdown document as output</div>
             <div class="t">What "done" looks like</div>
             <ul>
               <li>A Claude project with CLAUDE.md, house identity, performance data and your locked concept</li>
-              <li>A business case (<code>.xlsx</code>) with stated assumptions and payback charts</li>
+              <li>A business case (<code>.xlsx</code>) with stated assumptions and a sensitivity table</li>
               <li>A <code>lavernay-deck</code> skill anyone on your team could install tomorrow</li>
               <li>A pitch deck (<code>.pptx</code>) whose numbers match the model</li>
               <li>A working landing page for something that did not exist this morning</li>
@@ -554,7 +545,7 @@ Produce me a concise markdown document as output</div>
 
 <script>
   var PASSWORD = "nyc-2026";
-  var DRIVE_URL = "https://drive.google.com/drive/folders/1KeAQxMU_oZ2Ur7UHc9KmCKZ-5t88_xgc?usp=sharing";
+  var DRIVE_URL = "https://drive.google.com/";
 
   function unlock(){
     document.getElementById('gate').style.display = 'none';

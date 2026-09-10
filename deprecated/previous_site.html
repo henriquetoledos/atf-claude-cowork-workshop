@@ -19,52 +19,129 @@
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
-  body{font-family:'Roboto',Arial,sans-serif;color:var(--navy-text);background:var(--white);}
+  body{
+    font-family:'Roboto',Arial,sans-serif;
+    color:var(--navy-text);
+    background:var(--white);
+  }
   a{color:var(--pink);text-decoration:none;}
   a:hover{text-decoration:underline;}
-  code{font-family:'IBM Plex Mono','IBM Plex Sans',monospace;background:var(--grey-bg);padding:2px 6px;border-radius:4px;font-size:0.9em;}
+  code{
+    font-family:'IBM Plex Mono','IBM Plex Sans',monospace;
+    background:var(--grey-bg);
+    padding:2px 6px;
+    border-radius:4px;
+    font-size:0.9em;
+  }
 
-  #gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  /* ---------- Password gate ---------- */
+  #gate{
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
     background:radial-gradient(circle at 80% 15%, rgba(255,0,102,0.28), transparent 45%), linear-gradient(160deg, var(--navy-dark) 0%, var(--navy) 60%, #2b1a5e 100%);
-    z-index:1000;}
-  #gate .card{width:min(420px, 90vw);background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,0.35);}
-  #gate .card-top{height:6px;background:linear-gradient(90deg, var(--pink), var(--navy));}
+    z-index:1000;
+  }
+  #gate .card{
+    width:min(420px, 90vw);
+    background:var(--white);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+  }
+  #gate .card-top{
+    height:6px;
+    background:linear-gradient(90deg, var(--pink), var(--navy));
+  }
   #gate .card-body{padding:36px 32px 32px;}
-  #gate h1{font-size:26px;margin:0 0 8px;font-weight:900;color:var(--navy-text);}
+  #gate h1{
+    font-size:26px;margin:0 0 8px;font-weight:900;color:var(--navy-text);
+  }
   #gate h1 span{color:var(--pink);}
   #gate p.sub{color:#5b6580;margin:0 0 22px;font-size:14.5px;}
-  #gate input[type=password]{width:100%;padding:13px 14px;font-size:15px;border:1.5px solid var(--grey-border);border-radius:8px;margin-bottom:16px;font-family:inherit;}
+  #gate input[type=password]{
+    width:100%;padding:13px 14px;font-size:15px;
+    border:1.5px solid var(--grey-border);border-radius:8px;
+    margin-bottom:16px;font-family:inherit;
+  }
   #gate input[type=password]:focus{outline:none;border-color:var(--pink);}
-  #gate button{width:100%;padding:14px;border:none;border-radius:8px;background:linear-gradient(90deg, var(--pink), var(--navy));color:var(--white);font-weight:700;font-size:15px;cursor:pointer;letter-spacing:0.2px;}
+  #gate button{
+    width:100%;padding:14px;border:none;border-radius:8px;
+    background:linear-gradient(90deg, var(--pink), var(--navy));
+    color:var(--white);font-weight:700;font-size:15px;cursor:pointer;
+    letter-spacing:0.2px;
+  }
   #gate button:hover{filter:brightness(1.08);}
   #gate .error{color:var(--pink);font-size:13.5px;margin-top:10px;display:none;font-weight:500;}
   #gate .shake{animation:shake 0.35s;}
-  @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-6px);}80%{transform:translateX(6px);}}
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    20%{transform:translateX(-8px);}
+    40%{transform:translateX(8px);}
+    60%{transform:translateX(-6px);}
+    80%{transform:translateX(6px);}
+  }
 
+  /* ---------- App shell ---------- */
   #app{display:none;}
   #app.visible{display:block;}
-  #topbar{background:linear-gradient(90deg, var(--navy-dark), var(--navy) 55%, var(--pink) 130%);color:var(--white);padding:10px 24px;
-    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:14px;position:sticky;top:0;z-index:100;}
-  #topbar .drive-link{color:var(--white);font-weight:700;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.14);padding:8px 14px;border-radius:20px;}
+
+  #topbar{
+    background:linear-gradient(90deg, var(--navy-dark), var(--navy) 55%, var(--pink) 130%);
+    color:var(--white);
+    padding:10px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:8px;
+    font-size:14px;
+    position:sticky;top:0;z-index:100;
+  }
+  #topbar .drive-link{
+    color:var(--white);font-weight:700;
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,0.14);
+    padding:8px 14px;border-radius:20px;
+  }
   #topbar .drive-link:hover{background:rgba(255,255,255,0.24);text-decoration:none;}
   #topbar .event-tag{opacity:0.85;font-size:13px;}
 
   .layout{display:flex;min-height:100vh;}
-  #sidebar{width:260px;flex:0 0 260px;background:linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%);color:var(--white);
-    padding:26px 20px;position:sticky;top:41px;align-self:flex-start;height:calc(100vh - 41px);overflow-y:auto;}
+
+  #sidebar{
+    width:260px;flex:0 0 260px;
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color:var(--white);
+    padding:26px 20px;
+    position:sticky;top:41px;
+    align-self:flex-start;
+    height:calc(100vh - 41px);
+    overflow-y:auto;
+  }
   #sidebar .brand{font-size:19px;font-weight:900;line-height:1.25;margin-bottom:4px;}
   #sidebar .brand .accent{color:var(--pink);}
-  #sidebar .brand-sub{font-size:11px;letter-spacing:1.5px;color:#aab3d6;font-weight:700;margin-bottom:18px;}
-  #sidebar .slug-tag{display:inline-block;background:rgba(255,255,255,0.12);padding:4px 10px;border-radius:6px;font-size:12px;margin-bottom:22px;font-family:'IBM Plex Sans',monospace;letter-spacing:0.3px;}
+  #sidebar .brand-sub{
+    font-size:11px;letter-spacing:1.5px;color:#aab3d6;font-weight:700;margin-bottom:18px;
+  }
+  #sidebar .slug-tag{
+    display:inline-block;background:rgba(255,255,255,0.12);
+    padding:4px 10px;border-radius:6px;font-size:12px;margin-bottom:22px;
+    font-family:'IBM Plex Sans',monospace;letter-spacing:0.3px;
+  }
   #sidebar nav{display:flex;flex-direction:column;gap:2px;margin-bottom:24px;}
-  #sidebar nav a{color:#d7dcf2;font-size:14px;padding:9px 10px;border-radius:6px;}
+  #sidebar nav a{
+    color:#d7dcf2;font-size:14px;padding:9px 10px;border-radius:6px;
+  }
   #sidebar nav a:hover{background:rgba(255,255,255,0.08);color:var(--white);text-decoration:none;}
-  #lockBtn{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);background:transparent;color:#d7dcf2;font-size:13px;cursor:pointer;font-family:inherit;}
+  #lockBtn{
+    width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);
+    background:transparent;color:#d7dcf2;font-size:13px;cursor:pointer;font-family:inherit;
+  }
   #lockBtn:hover{background:rgba(255,255,255,0.1);color:var(--white);}
 
   main{flex:1;padding:36px 48px 80px;max-width:920px;}
-  h2.section-title{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--pink);font-weight:700;margin:44px 0 16px;}
+
+  h2.section-title{
+    font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--pink);font-weight:700;margin:44px 0 16px;
+  }
   h2.section-title:first-of-type{margin-top:0;}
 
   .hero h1{font-size:32px;margin:0 0 6px;font-weight:900;}
@@ -72,18 +149,36 @@
   .hero .meta{color:#5b6580;font-size:14.5px;margin-bottom:6px;}
   .hero .lede{font-size:16px;color:var(--navy-text);max-width:640px;line-height:1.5;}
 
-  .callout{background:var(--grey-bg);border-left:4px solid var(--pink);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.55;}
+  .callout{
+    background:var(--grey-bg);border-left:4px solid var(--pink);
+    border-radius:8px;padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.55;
+  }
   .callout b{color:var(--navy-text);}
   .callout.tip{border-left-color:var(--navy);}
 
   ul.prereq{margin:0;padding-left:20px;font-size:14.5px;line-height:1.8;}
   ul.prereq li{margin-bottom:2px;}
 
-  details.step{border:1px solid var(--grey-border);border-radius:10px;margin-bottom:14px;overflow:hidden;}
+  /* Stepper */
+  details.step{
+    border:1px solid var(--grey-border);
+    border-radius:10px;
+    margin-bottom:14px;
+    overflow:hidden;
+  }
   details.step[open]{border-color:var(--pink);}
-  details.step summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:16px 20px;}
+  details.step summary{
+    list-style:none;cursor:pointer;
+    display:flex;align-items:center;gap:16px;
+    padding:16px 20px;
+  }
   details.step summary::-webkit-details-marker{display:none;}
-  .step-num{flex:0 0 34px;height:34px;border-radius:50%;background:var(--grey-bg);color:var(--navy-text);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'IBM Plex Sans',sans-serif;font-size:15px;}
+  .step-num{
+    flex:0 0 34px;height:34px;border-radius:50%;
+    background:var(--grey-bg);color:var(--navy-text);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-family:'IBM Plex Sans',sans-serif;font-size:15px;
+  }
   details.step[open] .step-num{background:var(--pink);color:var(--white);}
   .step-titles{flex:1;}
   .step-titles .t{font-weight:700;font-size:16px;color:var(--navy-text);}
@@ -95,23 +190,59 @@
   .step-body ul{padding-left:20px;margin:8px 0;}
   .step-body li{margin-bottom:4px;}
 
-  .prompt{position:relative;background:#0e1330;color:#eef0fa;border-radius:8px;padding:14px 46px 14px 16px;margin:12px 0;
-    font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.55;white-space:pre-wrap;}
-  .prompt .copy{position:absolute;top:10px;right:10px;background:rgba(255,255,255,0.12);border:none;color:#eef0fa;border-radius:6px;padding:5px 7px;cursor:pointer;font-size:12px;}
+  .prompt{
+    position:relative;background:#0e1330;color:#eef0fa;
+    border-radius:8px;padding:14px 46px 14px 16px;margin:12px 0;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.55;
+  }
+  .prompt .copy{
+    position:absolute;top:10px;right:10px;
+    background:rgba(255,255,255,0.12);border:none;color:#eef0fa;
+    border-radius:6px;padding:5px 7px;cursor:pointer;font-size:12px;
+  }
   .prompt .copy:hover{background:rgba(255,255,255,0.22);}
   .prompt .copy.copied{background:var(--pink);}
 
-  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:2px 8px;border-radius:5px;background:var(--navy);color:var(--white);text-transform:uppercase;margin-bottom:8px;}
+  .badge{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.5px;
+    padding:2px 8px;border-radius:5px;background:var(--navy);color:var(--white);
+    text-transform:uppercase;margin-bottom:8px;
+  }
 
-  .done-box{background:var(--navy-dark);color:var(--white);border-radius:10px;padding:20px 22px;margin-top:18px;}
+  .tip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0;}
+  .tip-card{border:1px solid var(--grey-border);border-radius:10px;padding:16px;}
+  .tip-card .tip-title{font-weight:700;font-size:14.5px;margin-bottom:6px;color:var(--navy-text);}
+  .tip-card .tip-title .n{color:var(--pink);}
+  .tip-card p{font-size:13.5px;line-height:1.55;margin:0;color:#3c4460;}
+
+  .checklist{list-style:none;padding:0;margin:0;font-size:14px;}
+  .checklist li{padding:6px 0 6px 28px;position:relative;border-bottom:1px dashed var(--grey-border);}
+  .checklist li:last-child{border-bottom:none;}
+  .checklist li::before{
+    content:"";position:absolute;left:0;top:8px;width:16px;height:16px;
+    border:1.5px solid var(--navy);border-radius:4px;
+  }
+
+  .done-box{
+    background:var(--navy-dark);color:var(--white);border-radius:10px;padding:20px 22px;margin-top:18px;
+  }
   .done-box .t{font-weight:700;margin-bottom:8px;color:var(--pink);font-size:13px;letter-spacing:0.5px;text-transform:uppercase;}
   .done-box ul{margin:0;padding-left:20px;font-size:14px;line-height:1.7;}
 
-  footer{text-align:center;color:#8a90ab;font-size:12.5px;padding:28px 0 40px;}
+  footer{
+    text-align:center;color:#8a90ab;font-size:12.5px;padding:28px 0 40px;
+  }
 
+  /* ---------- Part badges / consulting-style intro blocks ---------- */
   section.context-block, section.flow-block, section.output-block{margin-top:46px;}
-  .part-badge{font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--pink);text-transform:uppercase;margin-bottom:10px;}
-  .part-headline{font-size:26px;font-weight:900;margin:0 0 10px;display:flex;align-items:center;gap:10px;color:var(--navy-text);}
+  .part-badge{
+    font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--pink);
+    text-transform:uppercase;margin-bottom:10px;
+  }
+  .part-headline{
+    font-size:26px;font-weight:900;margin:0 0 10px;display:flex;align-items:center;gap:10px;
+    color:var(--navy-text);
+  }
   .flow-block .part-headline, .output-block .part-headline{font-size:22px;margin-bottom:6px;}
   .icon-flame-inline{color:var(--pink);flex-shrink:0;}
   .part-sub{font-size:14.5px;color:#5b6580;margin:0 0 4px;max-width:600px;line-height:1.5;}
@@ -121,7 +252,10 @@
   .scr-item.highlight{background:var(--navy-dark);color:#fff;}
   .scr-item.highlight p{color:#d7dcf2;}
   .scr-item.highlight .scr-label{color:var(--pink);}
-  .scr-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--navy);margin-bottom:8px;}
+  .scr-label{
+    font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    color:var(--navy);margin-bottom:8px;
+  }
   .scr-item p{font-size:14px;line-height:1.6;margin:0;color:#3c4460;}
 
   .flow-svg{width:100%;height:auto;display:block;margin:22px 0 4px;}
@@ -131,17 +265,30 @@
 
   .output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-top:20px;}
   .output-card{border:1px solid var(--grey-border);border-radius:10px;padding:18px 16px;}
-  .icon-badge{width:44px;height:44px;border-radius:50%;background:var(--grey-bg);color:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+  .icon-badge{
+    width:44px;height:44px;border-radius:50%;background:var(--grey-bg);color:var(--navy);
+    display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+  }
   .out-title{font-weight:700;font-size:14.5px;margin-bottom:6px;color:var(--navy-text);}
   .out-desc{font-size:12.5px;line-height:1.5;color:#5b6580;margin-bottom:10px;}
-  .out-tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.4px;color:var(--pink);background:rgba(255,0,102,0.08);padding:3px 8px;border-radius:5px;font-family:'IBM Plex Sans',sans-serif;}
+  .out-tag{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.4px;color:var(--pink);
+    background:rgba(255,0,102,0.08);padding:3px 8px;border-radius:5px;font-family:'IBM Plex Sans',sans-serif;
+  }
 
-  @media (max-width: 700px){.scr-row{grid-template-columns:1fr;}}
-  @media (max-width: 820px){#sidebar{display:none;}main{padding:28px 20px 60px;}}
+  @media (max-width: 700px){
+    .scr-row{grid-template-columns:1fr;}
+  }
+
+  @media (max-width: 820px){
+    #sidebar{display:none;}
+    main{padding:28px 20px 60px;}
+  }
 </style>
 </head>
 <body>
 
+<!-- Shared line-icon symbols, reused across the page -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="icon-chat" viewBox="0 0 32 32">
@@ -167,6 +314,11 @@
       <rect x="14" y="11" width="5" height="16" fill="currentColor" stroke="none"/>
       <rect x="22" y="6" width="5" height="21" fill="currentColor" stroke="none"/>
     </symbol>
+    <symbol id="icon-palette" viewBox="0 0 32 32">
+      <circle cx="12" cy="13" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="20" cy="13" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="16" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+    </symbol>
     <symbol id="icon-deck" viewBox="0 0 32 32">
       <rect x="8" y="5" width="20" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6" opacity="0.5"/>
       <rect x="4" y="9" width="20" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -183,6 +335,7 @@
   </defs>
 </svg>
 
+<!-- ============ PASSWORD GATE ============ -->
 <div id="gate">
   <div class="card">
     <div class="card-top"></div>
@@ -196,20 +349,21 @@
   </div>
 </div>
 
+<!-- ============ MAIN APP ============ -->
 <div id="app">
 
   <div id="topbar">
-    <a class="drive-link" href="#" target="_blank" rel="noopener" id="driveLink">
+    <a class="drive-link" href="https://drive.google.com/drive/folders/1pqsV3v5yjxwh_ZvWOWr4d7l9xME0JCfO?usp=sharing" target="_blank" rel="noopener">
       📁 Download workshop files (Google Drive)
     </a>
-    <span class="event-tag">Artefact Claude Workshop · New York · September 2026</span>
+    <span class="event-tag">Artefact Claude Workshop - August 12, 2026</span>
   </div>
 
   <div class="layout">
     <div id="sidebar">
       <div class="brand"><span class="accent">Artefact Claude</span> Workshop</div>
-      <div class="brand-sub">SEPTEMBER 2026</div>
-      <div class="slug-tag">lavernay</div>
+      <div class="brand-sub">AUGUST 12, 2026</div>
+      <div class="slug-tag">nyc-2026</div>
       <nav>
         <a href="#overview">Overview</a>
         <a href="#context">01 · Context</a>
@@ -226,31 +380,28 @@
     <main>
       <section class="hero" id="overview">
         <h1><span class="accent">Artefact Claude</span> Workshop</h1>
-        <div class="meta">September 2026 · ~90 min · one continuous case, built by you</div>
+        <div class="meta">August 12, 2026 · ~90 min · one continuous case, built by you</div>
       </section>
 
       <section class="context-block" id="context">
         <div class="part-badge">01 · The Context</div>
         <h2 class="part-headline">
           <svg class="icon-flame-inline" width="28" height="28" viewBox="0 0 32 32"><use href="#icon-flame"></use></svg>
-          Maison Lavernay Is Losing the Next Generation
+          Beyond the Menu: Building a Restaurant Brand from Zero
         </h2>
         <div class="scr-row">
           <div class="scr-item">
             <div class="scr-label">Where You Start</div>
-            <p>You're in Strategy & New Business at Maison Lavernay, a 118 year old French jewellery house. Fine jewellery, leather goods, fragrance. No logos, no discounts, ever.</p>
+            <p>You've spent years around kitchens and dining rooms. You know food, hospitality, and what makes a place worth visiting.</p>
           </div>
           <div class="scr-item">
-            <div class="scr-label">What's Happening</div>
-            <p>The customer who used to become a Lavernay client now arrives seven years later than she did a decade ago. Under 35s have gone from 21% of revenue to 12%.</p>
+            <div class="scr-label">What's Missing</div>
+            <p>What you don't have yet is the business behind it — no financial model, no brand, no pitch. Normally that takes weeks and several people to build.</p>
           </div>
           <div class="scr-item highlight">
-            <div class="scr-label">What You Build Today</div>
-            <p>One new product or service that brings that customer back — researched, cased, and prototyped by you, end to end.</p>
+            <div class="scr-label">What Changes Today</div>
+            <p>Today, you build all of it yourself, in one sitting — with Claude as your team, end to end.</p>
           </div>
-        </div>
-        <div class="callout" style="margin-top:16px;">
-          <b>The opportunity is real, and it's ours to take.</b> The house that makes itself matter to this generation first doesn't just defend its numbers, it gets to define what luxury looks like for the next twenty years. That's what you're building today.
         </div>
       </section>
 
@@ -265,30 +416,34 @@
               <path d="M0 0L10 5L0 10z" fill="#FF0066"></path>
             </marker>
           </defs>
+
           <line x1="196" y1="95" x2="404" y2="95" stroke="#FF0066" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
           <line x1="506" y1="95" x2="714" y2="95" stroke="#FF0066" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
+
           <g>
             <circle cx="150" cy="95" r="46" fill="#172469"></circle>
             <g transform="translate(134,79)" style="color:#ffffff"><use href="#icon-chat" width="32" height="32"></use></g>
             <text x="150" y="163" text-anchor="middle" class="flow-eyebrow">STAGE 1 · CHAT</text>
             <text x="150" y="185" text-anchor="middle" class="flow-title">Discover</text>
-            <text x="150" y="204" text-anchor="middle" class="flow-desc">Research the shift,</text>
+            <text x="150" y="204" text-anchor="middle" class="flow-desc">Research, lock the idea,</text>
             <text x="150" y="218" text-anchor="middle" class="flow-desc">write it down</text>
           </g>
+
           <g>
             <circle cx="460" cy="95" r="46" fill="#172469" stroke="#FF0066" stroke-width="3"></circle>
             <g transform="translate(444,79)" style="color:#ffffff"><use href="#icon-cowork" width="32" height="32"></use></g>
             <text x="460" y="163" text-anchor="middle" class="flow-eyebrow">STAGE 2 · COWORK</text>
-            <text x="460" y="185" text-anchor="middle" class="flow-title">Build the Case</text>
-            <text x="460" y="204" text-anchor="middle" class="flow-desc">Concept, business case,</text>
-            <text x="460" y="218" text-anchor="middle" class="flow-desc">pitch — all consistent</text>
+            <text x="460" y="185" text-anchor="middle" class="flow-title">Build the Business</text>
+            <text x="460" y="204" text-anchor="middle" class="flow-desc">Plan, brand, and pitch —</text>
+            <text x="460" y="218" text-anchor="middle" class="flow-desc">kept consistent</text>
           </g>
+
           <g>
             <circle cx="770" cy="95" r="46" fill="#172469"></circle>
             <g transform="translate(754,79)" style="color:#ffffff"><use href="#icon-code" width="32" height="32"></use></g>
             <text x="770" y="163" text-anchor="middle" class="flow-eyebrow">STAGE 3 · CODE</text>
             <text x="770" y="185" text-anchor="middle" class="flow-title">Ship It</text>
-            <text x="770" y="204" text-anchor="middle" class="flow-desc">From concept to a working</text>
+            <text x="770" y="204" text-anchor="middle" class="flow-desc">From PRD to a working</text>
             <text x="770" y="218" text-anchor="middle" class="flow-desc">landing page</text>
           </g>
         </svg>
@@ -296,30 +451,36 @@
 
       <section class="output-block" id="output">
         <div class="part-badge">03 · The Output</div>
-        <h2 class="part-headline">Four deliverables, one consistent story.</h2>
+        <h2 class="part-headline">Five deliverables, one consistent story.</h2>
         <div class="output-grid">
           <div class="output-card">
             <div class="icon-badge"><svg width="26" height="26" viewBox="0 0 32 32"><use href="#icon-cowork"></use></svg></div>
             <div class="out-title">Claude Project</div>
-            <div class="out-desc">CLAUDE.md, house identity, performance data and your locked concept, organized in one folder Claude reads automatically.</div>
+            <div class="out-desc">CLAUDE.md, market research, and every file organized in one folder Claude reads automatically.</div>
             <div class="out-tag">/project + CLAUDE.md</div>
           </div>
           <div class="output-card">
             <div class="icon-badge"><svg width="26" height="26" viewBox="0 0 32 32"><use href="#icon-chart"></use></svg></div>
-            <div class="out-title">Business Case</div>
-            <div class="out-desc">Volume, price, cost, acquisition and payback — shaped to your offer, assumptions stated explicitly.</div>
+            <div class="out-title">Financial Plan</div>
+            <div class="out-desc">Startup costs, operating costs, revenue assumptions, and break-even — assumptions stated explicitly.</div>
             <div class="out-tag">.xlsx</div>
           </div>
           <div class="output-card">
+            <div class="icon-badge"><svg width="26" height="26" viewBox="0 0 32 32"><use href="#icon-palette"></use></svg></div>
+            <div class="out-title">Branding Guidelines</div>
+            <div class="out-desc">A locked visual direction, researched and validated before any artwork exists.</div>
+            <div class="out-tag">.md + skill</div>
+          </div>
+          <div class="output-card">
             <div class="icon-badge"><svg width="26" height="26" viewBox="0 0 32 32"><use href="#icon-deck"></use></svg></div>
-            <div class="out-title">Pitch Deck</div>
-            <div class="out-desc">Evidence and pitch in one deck, built from a reusable house-standards skill.</div>
-            <div class="out-tag">.pptx + skill</div>
+            <div class="out-title">Investor Pitch Deck</div>
+            <div class="out-desc">6-8 slides, numbers pulled straight from the financial plan.</div>
+            <div class="out-tag">.pptx or .html</div>
           </div>
           <div class="output-card">
             <div class="icon-badge"><svg width="26" height="26" viewBox="0 0 32 32"><use href="#icon-browser"></use></svg></div>
             <div class="out-title">Landing Page</div>
-            <div class="out-desc">A working one-page site for the product you invented this morning — built next, in Claude Code.</div>
+            <div class="out-desc">A working one-page site to capture the waitlist — built next, in Claude Code.</div>
             <div class="out-tag">.html</div>
           </div>
         </div>
@@ -329,20 +490,13 @@
       <ul class="prereq">
         <li>Claude desktop app installed and signed in with your workshop account (<a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>)</li>
         <li>Cowork mode enabled in the app</li>
-        <li>Claude for Chrome extension installed (optional) </li>
-        <li>Claude for Excel &amp; PowerPoint extension installed (optional) </li>
-        <li>The workshop folder downloaded, to use as your project workspace</li>
+        <li>Claude for Chrome extension installed</li>
+        <li>Claude for Excel &amp; PowerPoint extension installed</li>
+        <li>An empty folder on your computer to use as your project workspace</li>
       </ul>
       <div class="callout">
         <b>Pro tip:</b> Cowork will ask for permission before it reads or writes files outside the folder you point it to, before running shell commands, and before installing anything new. Approve each action, or tell it to do something different — you stay in control the whole time.
       </div>
-
-      <h2 class="section-title">Before You Begin</h2>
-      <ul class="prereq">
-        <li>Click the link at the top left of this page to download the <b>.zip</b> exercise files</li>
-        <li>Unzip the files into a folder that's easy to find and get back to</li>
-        <li>The <b>grill-me</b> skill is not something you install alone — we'll do it together, as a group, once everyone is set up</li>
-      </ul>
 
       <h2 class="section-title" id="steps">Core Steps</h2>
 
@@ -364,7 +518,9 @@
             <li>Create a <b>write-like-me</b> skill so anything Cowork drafts for you later sounds like you</li>
           </ul>
           <div class="prompt" id="p1">
-            <button class="copy" onclick="copyPrompt('p1')">Copy</button>Look at my last 10 to 20 sent emails and create a skill that captures my writing style. Focus on tone, sentence length, phrases I use and avoid. So future drafts sound like me.</div>
+            <button class="copy" onclick="copyPrompt('p1')">Copy</button>
+            Look at my last 20-30 sent emails and create a skill that captures my writing style — tone, sentence length, phrases I use and avoid — so future drafts sound like me.
+          </div>
         </div>
       </details>
 
@@ -372,28 +528,18 @@
         <summary>
           <div class="step-num">2</div>
           <div class="step-titles">
-            <div class="t">Research the Shift (Claude Chat)</div>
-            <div class="s">What you'll learn: opening a case in the browser and letting Claude read and cite live sources.</div>
+            <div class="t">Discover the Opportunity (Claude Chat)</div>
+            <div class="s">What you'll learn: opening a case with one simple question and letting Claude pull live web data.</div>
           </div>
           <div class="chev">▾</div>
         </summary>
         <div class="step-body">
           <span class="badge">Chat</span>
-          <p>This part happens in a regular claude.ai chat — no files, no desktop app yet.</p>
+          <p>This part happens in a regular Claude.ai chat — no files yet. Start broad: no predefined cuisine, neighborhood, or angle going in.</p>
           <div class="prompt" id="p2">
-            <button class="copy" onclick="copyPrompt('p2')">Copy</button># Role
-Act as a seasoned Marketing Professional for the Luxury Industry. I need you to help me plan the creation of a new product.
-
-# Instructions
-Use these two articles as reference:
-https://insights.ehl.edu/gen-z-luxury-consumption
-https://www.pandcglobal.com/research-insights/millennials-gen-z-are-transforming-luxury-retail/
-
-Give me a market brief on what is actually happening to luxury demand under 35: the hard numbers, if the two sources disagree, and which claims I should not repeat to a committee without checking. Then follow their citations and pull two figures neither article states directly.
-
-# Output
-Produce me a concise markdown document as output</div>
-          <p>Download the markdown file. You'll bring this into Cowork in the next step — the concept itself gets decided there, once the house's own numbers are in the room.</p>
+            <button class="copy" onclick="copyPrompt('p2')">Copy</button>
+            I want to open a restaurant in NYC, but I'm not sure about what cusine, type, neighborhood and so on. Help me elaborate on this ideia. Remember to pull live data from the web so we are up to date with our research
+          </div>
         </div>
       </details>
 
@@ -401,19 +547,21 @@ Produce me a concise markdown document as output</div>
         <summary>
           <div class="step-num">3</div>
           <div class="step-titles">
-            <div class="t">Move from Chat to Cowork</div>
-            <div class="s">What you'll learn: turning a research brief into a Cowork project, with CLAUDE.md doing the work Instructions usually would.</div>
+            <div class="t">Sharpen the Idea with grill-me</div>
+            <div class="s">What you'll learn: using the grill-me skill to pressure-test an idea until it's a clear decision.</div>
           </div>
           <div class="chev">▾</div>
         </summary>
         <div class="step-body">
-          <span class="badge">Cowork starts here</span>
+          <span class="badge">Chat</span>
           <ul>
-            <li>Add the downloaded market brief to the workshop folder, inside <code>/research</code></li>
-            <li>In the desktop app, create a project using <b>Use local folder</b> and choose the workshop folder</li>
-            <li>Do not add Instructions — you'll use the local CLAUDE.md file instead</li>
+            <li>Install the grill-me skill (in the folder downloaded)</li>
           </ul>
-          <div class="callout tip"><b>Why this matters:</b> without CLAUDE.md, every new session starts from zero and re-asks questions you've already answered.</div>
+          <div class="prompt" id="p4">
+            <button class="copy" onclick="copyPrompt('p4')">Copy</button>
+            OK. We need to refine the concept now. Please grill me on this ideia so we come to a clear vision for the restaurant
+          </div>
+          <div class="callout tip"><b>Tip:</b> if the grill-me session is deviating too much from what you want to do, just steer it. Ask Claude to stop once you feel you've come to an understanding, then consolidate the decisions in CLAUDE.md and memory.</div>
         </div>
       </details>
 
@@ -421,24 +569,14 @@ Produce me a concise markdown document as output</div>
         <summary>
           <div class="step-num">4</div>
           <div class="step-titles">
-            <div class="t">Find Your Concept, Then Grill It</div>
-            <div class="s">What you'll learn: shaping an idea against real company context, then pressure-testing it with the grill-me skill.</div>
+            <div class="t">Deep Research (Optional)</div>
+            <div class="s">What you'll learn: when it's worth pausing to gather more data points before locking the concept.</div>
           </div>
           <div class="chev">▾</div>
         </summary>
         <div class="step-body">
-          <span class="badge">Cowork</span>
-          <p>Everything from here runs on the folder. The house identity, the five year performance file, and your market brief are all in the room now.</p>
-          <div class="prompt" id="p3">
-            <button class="copy" onclick="copyPrompt('p3')">Copy</button>Based on the market brief in the research folder: give me 3 different offers (new product line or a digital product / service) a 118 year old French jewellery house could launch to bring back the customer it is losing. Make them genuinely different from each other. For each, say in one line what it assumes about the customer that the others do not.</div>
-          <p>Pick one. Then open the <b>grill-me</b> skill we installed together and push on it:</p>
-          <div class="prompt" id="p4">
-            <button class="copy" onclick="copyPrompt('p4')">Copy</button>I'm taking [the one you picked]. Grill me on it. What would have to be true, what am I assuming without evidence, and what is the version of this that a competitor could copy in six months?</div>
-          <div class="callout tip"><b>Tip:</b> if the grill-me session is deviating too much from what you want to do, just steer it. Ask Claude to stop once you feel you've reached an understanding.</div>
-          <p>When the idea holds:</p>
-          <div class="prompt" id="p5">
-            <button class="copy" onclick="copyPrompt('p5')">Copy</button>Stop grilling me. Save the idea in the research folder, and update your project memory.</div>
-          <div class="callout"><b>This is the whole context argument in one step.</b> The same kind of question you could have asked in the browser becomes a sharper one here, because the house's brand rules and five years of its own numbers are sitting in the room with you.</div>
+          <span class="badge">Chat</span>
+          <p>Optional — if you want more data points before moving on, run a deeper research pass now, while you're still in Chat and before the concept gets locked into a project.</p>
         </div>
       </details>
 
@@ -446,16 +584,23 @@ Produce me a concise markdown document as output</div>
         <summary>
           <div class="step-num">5</div>
           <div class="step-titles">
-            <div class="t">See Who's Already Doing It</div>
-            <div class="s">What you'll learn: using the Claude for Chrome extension to research and capture live references.</div>
+            <div class="t">Move from Chat to Cowork</div>
+            <div class="s">What you'll learn: turning a locked concept into a Cowork project, with CLAUDE.md doing the work Instructions usually would.</div>
           </div>
           <div class="chev">▾</div>
         </summary>
         <div class="step-body">
-          <span class="badge">Cowork</span>
-          <div class="prompt" id="p6">
-            <button class="copy" onclick="copyPrompt('p6')">Copy</button>Use Chrome to look at two brands already doing something adjacent to my concept. Not competitors necessarily. I want to know how they explain it on their own site, how they price it, and what they got wrong. Screenshot and save into the project.</div>
-          <div class="callout tip"><b>No Chrome extension?</b> Ask Claude to use its built-in browser instead — it can navigate the pages and bring back what it finds.</div>
+          <span class="badge">Cowork starts here</span>
+          <div class="prompt" id="p5">
+            <button class="copy" onclick="copyPrompt('p5')">Copy</button>
+            I have the concept clear now. I want to move to Cowork now, please prepare a CLAUDE.md file for me, and add any market research on separate files
+          </div>
+          <ul>
+            <li>Create a project</li>
+            <li>Do not add Instructions — you'll use the local CLAUDE.md file instead</li>
+            <li>Add the files you've downloaded from Chat (remember to extract the .zip file first, if needed)</li>
+          </ul>
+          <div class="callout tip"><b>Why this matters:</b> without CLAUDE.md, every new session starts from zero and re-asks questions you've already answered.</div>
         </div>
       </details>
 
@@ -463,23 +608,17 @@ Produce me a concise markdown document as output</div>
         <summary>
           <div class="step-num">6</div>
           <div class="step-titles">
-            <div class="t">Build the Business Case</div>
-            <div class="s">What you'll learn: generating a spreadsheet with stated assumptions, then finishing it inside Excel.</div>
+            <div class="t">Build the Financial Plan</div>
+            <div class="s">What you'll learn: generating a real spreadsheet with stated assumptions and a live data table.</div>
           </div>
           <div class="chev">▾</div>
         </summary>
         <div class="step-body">
           <span class="badge">Cowork</span>
-          <div class="callout tip"><b>Switch to Sonnet 5 for this step.</b> Haiku is fast but doesn't reliably produce good spreadsheet or slide output — use the model picker to switch before you continue.</div>
-          <div class="prompt" id="p7">
-            <button class="copy" onclick="copyPrompt('p7')">Copy</button>Build the business case in Excel for my concept following /brand/business-case-standards.md. Keep it simple. There is no template, build the model the offer actually needs. Ground every assumption you can in the performance file or the research, and where you cannot, say so in the cell rather than making it look solid.</div>
-          <p><b>Open it in Excel and keep working there:</b></p>
-          <div class="prompt" id="p8">
-            <button class="copy" onclick="copyPrompt('p8')">Copy</button>Add charts showing the investment payback for this offer — when it breaks even, and how that shifts under a slower and a faster adoption case. Then tell me which single assumption the whole case rests on.</div>
-          <div class="callout"><b>Important:</b> the Claude extension in Excel and PowerPoint does not see your whole project — only what's inside the open workbook. Keep that in mind when asking it to reference other files.</div>
-          <p><b>Optional — leave something running:</b></p>
-          <div class="prompt" id="p9">
-            <button class="copy" onclick="copyPrompt('p9')">Copy</button>Set up a weekly task that watches for anything that would change a number in my business case: category data, competitor launches in this space, resale platform news. Short. Only tell me when something actually moved.</div>
+          <div class="prompt" id="p6">
+            <button class="copy" onclick="copyPrompt('p6')">Copy</button>
+            Help me build the financial plan. Build me a spreadsheet with startup costs, monthly operating costs, revenue assumptions, and a break-even estimate. Show your assumptions clearly. Add a table to monitor updated Food prices from USDA Economic
+          </div>
         </div>
       </details>
 
@@ -487,19 +626,17 @@ Produce me a concise markdown document as output</div>
         <summary>
           <div class="step-num">7</div>
           <div class="step-titles">
-            <div class="t">Build the Pitch Deck + a Skill</div>
-            <div class="s">What you'll learn: turning house standards into a reusable skill, then building the deck from it.</div>
+            <div class="t">Explore Branding References with Chrome</div>
+            <div class="s">What you'll learn: using the Claude for Chrome extension to research and capture visual references live.</div>
           </div>
           <div class="chev">▾</div>
         </summary>
         <div class="step-body">
           <span class="badge">Cowork</span>
-          <div class="callout tip"><b>Stay on Sonnet 5 for this step</b> — the deck build and the PowerPoint pass both need it for consistent quality.</div>
-          <div class="prompt" id="p10">
-            <button class="copy" onclick="copyPrompt('p10')">Copy</button>Turn /brand/deck-standards.md and the voice rules in /brand/house-identity.md into a reusable skill called lavernay-deck that anyone on the team can install. It should enforce the structure, the action-title rule, the sourcing rule and the banned words. It should assume nothing about my particular concept. Use /skill-creator to create it.</div>
-          <p>Once the skill exists, build the deck:</p>
-          <div class="prompt" id="p11">
-            <button class="copy" onclick="copyPrompt('p11')">Copy</button>Using the lavernay-deck skill, build the committee deck for the idea on reserach folder . Evidence and pitch in one deck, not two. Pull every number from the model so the deck and the model cannot disagree. Slide 7 is the assumptions the recommendation depends on, stated so someone can argue with them.</div>
+          <div class="prompt" id="p7">
+            <button class="copy" onclick="copyPrompt('p7')">Copy</button>
+            I need to come up with some visual branding ideias for my restaurant - please explore some similar restaurants website using Chrome so we can build a reference for our branding guideline. Take some screenshots and add to the folder.
+          </div>
         </div>
       </details>
 
@@ -507,24 +644,86 @@ Produce me a concise markdown document as output</div>
         <summary>
           <div class="step-num">8</div>
           <div class="step-titles">
-            <div class="t">Hand Off to Claude Code: Build the Landing Page</div>
-            <div class="s">What you'll learn: moving the same project into Claude Code and shipping a working prototype.</div>
+            <div class="t">Create Branding Guidelines + a pptx Skill</div>
+            <div class="s">What you'll learn: locking a visual direction, turning it into a reusable skill, then finishing the spreadsheet inside Excel.</div>
+          </div>
+          <div class="chev">▾</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge">Cowork</span>
+          <div class="prompt" id="p8">
+            <button class="copy" onclick="copyPrompt('p8')">Copy</button>
+            We need to build a branding guideline for our restaurant - help me come up with it
+          </div>
+          <p>Once you agree on a direction:</p>
+          <div class="prompt" id="p9">
+            <button class="copy" onclick="copyPrompt('p9')">Copy</button>
+            create a a pptx skill for us to build the decks. Create a template deck for me so I can evaulate
+          </div>
+          <p><b>Open Claude for Excel to keep editing inside the tool:</b></p>
+          <div class="prompt" id="p10">
+            <button class="copy" onclick="copyPrompt('p10')">Copy</button>
+            Create a tab to detail the kitchen equipment I need to buy.
+          </div>
+          <div class="callout"><b>Important:</b> the Claude extension in Excel and PowerPoint does not see your whole project — only what's inside the open workbook. Keep that in mind when asking it to reference other files.</div>
+          <p><b>Add a recurring task to keep prices current:</b></p>
+          <div class="prompt" id="p11">
+            <button class="copy" onclick="copyPrompt('p11')">Copy</button>
+            add a recurring task to update food prices on a monthly basis
+          </div>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>
+          <div class="step-num">9</div>
+          <div class="step-titles">
+            <div class="t">Build the Investor Pitch Deck</div>
+            <div class="s">What you'll learn: generating a numbers-consistent deck, then turning it into an interactive website.</div>
+          </div>
+          <div class="chev">▾</div>
+        </summary>
+        <div class="step-body">
+          <span class="badge">Cowork</span>
+          <div class="prompt" id="p12">
+            <button class="copy" onclick="copyPrompt('p12')">Copy</button>
+            Now build a short investor pitch deck (6 to 8 slides) covering the opportunity, the concept, the target customer, the financial highlights, and the ask. Pull the numbers from the financial plan so everything is consistent.
+          </div>
+          <p><b>Turn it into an interactive website:</b></p>
+          <div class="prompt" id="p13">
+            <button class="copy" onclick="copyPrompt('p13')">Copy</button>
+            I want to impress my investors - let's make a website page for this presentation. Use the same technology of this website https://www.igloo.inc/
+            you need to scroll down to see the content, but the idea is to be something modern  with this effect and you uncover more information as you scroll down
+          </div>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>
+          <div class="step-num">10</div>
+          <div class="step-titles">
+            <div class="t">Hand Off to Claude Code: Build the Reservations Site</div>
+            <div class="s">What you'll learn: moving the same project into Claude Code and publishing a working site.</div>
           </div>
           <div class="chev">▾</div>
         </summary>
         <div class="step-body">
           <span class="badge">Code</span>
-          <div class="prompt" id="p13">
-            <button class="copy" onclick="copyPrompt('p13')">Copy</button>Build the landing page for my offer as a single HTML page, following /brand/landing-page-standards.md , but usign an interactivity similar to this website: https://www.igloo.inc/. House palette, no logo, one action — a way to register interest. Keep it simple, one page, no login, no backend. Create it under a folder named website.</div>
-          <p>This is where the Cowork track ends and the Claude Code track picks up — same project, same context, no re-explaining.</p>
+          <div class="prompt" id="p14">
+            <button class="copy" onclick="copyPrompt('p14')">Copy</button>
+            OK, I need to build a website to capture reservations for my restaurant.
+Include: a hero section with the restaurant name and tagline, a short story/concept section, a sample menu (5-8 items pulled from the concept), location and hours, and a reservation form that actually send emails to &lt;your_email&gt; Keep it simple, one page, no login, no backend
+
+After approval, let's publish it using Vercel
+          </div>
+          <p>Replace <code>&lt;your_email&gt;</code> with your own address before sending the prompt. This is where the Cowork track ends and the Claude Code track picks up — same project, same context, no re-explaining.</p>
           <div class="done-box">
             <div class="t">What "done" looks like</div>
             <ul>
-              <li>A Claude project with CLAUDE.md, house identity, performance data and your locked concept</li>
-              <li>A business case (<code>.xlsx</code>) with stated assumptions and payback charts</li>
-              <li>A <code>lavernay-deck</code> skill anyone on your team could install tomorrow</li>
-              <li>A pitch deck (<code>.pptx</code>) whose numbers match the model</li>
-              <li>A working landing page for something that did not exist this morning</li>
+              <li>A financial plan (<code>.xlsx</code>) with stated assumptions and a live USDA price table</li>
+              <li>A branding guidelines doc + a reusable pptx skill</li>
+              <li>An investor pitch deck (<code>.pptx</code> or interactive site), numbers-consistent with the financial plan</li>
+              <li>A published reservations website, live on Vercel</li>
             </ul>
           </div>
         </div>
@@ -535,26 +734,23 @@ Produce me a concise markdown document as output</div>
         <li><b>Something looks off</b> — describe exactly what's wrong and what you expected instead; ask Cowork to redo just that piece, not the whole project.</li>
         <li><b>Claude can't see what you're looking at</b> — take a screenshot and paste it in (Cmd+V / Ctrl+V).</li>
         <li><b>Excel/PowerPoint extension seems to be missing context</b> — reminder: it only reads the open workbook, not your whole project folder.</li>
-        <li><b>Losing track across sessions</b> — ask Cowork to summarize what it currently knows from CLAUDE.md and memory before continuing.</li>
+        <li><b>Losing track across sessions</b> — ask Cowork to summarize what it currently knows from CLAUDE.md and MEMORY.md before continuing.</li>
       </ul>
 
       <h2 class="section-title" id="resources">Resources</h2>
       <ul class="prereq">
-        <li><a href="#" target="_blank" rel="noopener" id="driveLink2">Workshop files (Google Drive)</a></li>
-        <li><a href="https://insights.ehl.edu/gen-z-luxury-consumption" target="_blank" rel="noopener">EHL · Gen Z and the future of luxury consumption</a></li>
-        <li><a href="https://www.pandcglobal.com/research-insights/millennials-gen-z-are-transforming-luxury-retail/" target="_blank" rel="noopener">P&amp;C Global · Millennials and Gen Z are transforming luxury retail</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1pqsV3v5yjxwh_ZvWOWr4d7l9xME0JCfO?usp=sharing" target="_blank" rel="noopener">Workshop files (Google Drive)</a></li>
         <li><a href="https://docs.claude.com" target="_blank" rel="noopener">Claude documentation</a></li>
         <li><a href="https://support.claude.com" target="_blank" rel="noopener">Claude support &amp; help center</a></li>
       </ul>
 
-      <footer>Artefact · Claude Cowork Workshop · NYC · September 2026</footer>
+      <footer>Artefact · Claude Cowork Workshop · NYC · August 12, 2026</footer>
     </main>
   </div>
 </div>
 
 <script>
-  var PASSWORD = "nyc-2026";
-  var DRIVE_URL = "https://drive.google.com/drive/folders/1KeAQxMU_oZ2Ur7UHc9KmCKZ-5t88_xgc?usp=sharing";
+  var PASSWORD = "nyc-2026"; // TODO: not confidential, but update before publishing publicly
 
   function unlock(){
     document.getElementById('gate').style.display = 'none';
@@ -564,11 +760,6 @@ Produce me a concise markdown document as output</div>
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    ['driveLink','driveLink2'].forEach(function(id){
-      var el = document.getElementById(id);
-      if (el) el.href = DRIVE_URL;
-    });
-
     if (localStorage.getItem('cowork_workshop_unlocked') === 'true') {
       unlock();
     }
